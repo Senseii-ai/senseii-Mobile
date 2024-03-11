@@ -8,6 +8,20 @@ import {
   getGrantedPermissions,
   insertRecords,
 } from 'react-native-health-connect';
+import {
+  BloodGlucoseRecord,
+  BloodPressureRecord,
+  BodyFatRecord,
+  BodyTemperatureRecord,
+  BodyWaterMassRecord,
+  HeartRateRecord,
+  HeartRateVariabilityRmssdRecord,
+  HydrationRecord,
+  OxygenSaturationRecord,
+  RespiratoryRateRecord,
+  RestingHeartRateRecord,
+  Vo2MaxRecord,
+} from 'react-native-health-connect/lib/typescript/types';
 
 export default function App() {
   useEffect(() => {
@@ -50,15 +64,111 @@ export default function App() {
           endTime: endTime,
         },
       ]);
+      const BoddyFatRecrod: BodyFatRecord = {
+        recordType: 'BodyFat',
+        percentage: 20,
+        time: new Date().toISOString(),
+      };
 
-      const getSteps = await readRecords('Steps', {
-        timeRangeFilter: {
-          operator: 'after',
-          startTime: startTime,
+      const BloodPressureRecord: BloodPressureRecord = {
+        recordType: 'BloodPressure',
+        systolic: {
+          value: 120,
+          unit: 'millimetersOfMercury',
         },
-      });
+        diastolic: {
+          value: 80,
+          unit: 'millimetersOfMercury',
+        },
+        time: new Date().toISOString(),
+        bodyPosition: 2,
+        measurementLocation: 2,
+      };
 
-      console.log('This is what record looks like', getSteps);
+      const bloodGlucoseRecord: BloodGlucoseRecord = {
+        recordType: 'BloodGlucose',
+        level: {
+          value: 200,
+          unit: 'milligramsPerDeciliter',
+        },
+        mealType: 2,
+        specimenSource: 2,
+        relationToMeal: 2,
+        time: new Date().toISOString(),
+      };
+
+      const BodyTemperatureRecord: BodyTemperatureRecord = {
+        recordType: 'BodyTemperature',
+        temperature: {
+          value: 98.6,
+          unit: 'fahrenheit',
+        },
+        time: new Date().toISOString(),
+      };
+
+      const WaterMass: BodyWaterMassRecord = {
+        recordType: 'BodyWaterMass',
+        mass: {
+          value: 200,
+          unit: 'kilograms',
+        },
+        time: new Date().toISOString(),
+      };
+
+      const HeartRateRecords: HeartRateRecord = {
+        recordType: 'HeartRate',
+        startTime: new Date().toISOString(),
+        endTime: new Date().toISOString(),
+        samples: [
+          {
+            beatsPerMinute: 20,
+            time: new Date().toISOString(),
+          },
+        ],
+      };
+
+      const HeartRateVariability: HeartRateVariabilityRmssdRecord = {
+        recordType: 'HeartRateVariabilityRmssd',
+        heartRateVariabilityMillis: 20,
+        time: new Date().toISOString(),
+      };
+
+      const HydrationRecord: HydrationRecord = {
+        startTime: new Date().toISOString(),
+        endTime: new Date().toISOString(),
+        recordType: 'Hydration',
+        volume: {
+          value: 20,
+          unit: 'liters',
+        },
+      };
+
+      const OxygenSaturationRecord: OxygenSaturationRecord = {
+        recordType: 'OxygenSaturation',
+        percentage: 20,
+        time: new Date().toISOString(),
+      };
+
+      const RespiratoryRateRecord: RespiratoryRateRecord = {
+        recordType: 'RespiratoryRate',
+        rate: 20,
+        time: new Date().toISOString(),
+      };
+
+      const RestingHeartRate: RestingHeartRateRecord = {
+        recordType: 'RestingHeartRate',
+        beatsPerMinute: 20,
+        time: new Date().toISOString(),
+      };
+
+      const Vo2MaxRecord: Vo2MaxRecord = {
+        recordType: 'Vo2Max',
+        measurementMethod: 2,
+        vo2MillilitersPerMinuteKilogram: 20,
+        time: new Date().toISOString(),
+      };
+
+      console.log('This is what record looks like');
     };
 
     getHealthData();
