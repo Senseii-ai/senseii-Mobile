@@ -2,25 +2,13 @@ import { useEffect, useState } from "react";
 import {
   getGrantedPermissions,
   initialize,
-  readRecord,
   requestPermission,
 } from "react-native-health-connect";
-import { BloodGlucoseRecord, BloodPressureRecord, BodyFatRecord, BodyTemperatureRecord, BodyWaterMassRecord, HeartRateRecord, HeartRateVariabilityRmssdRecord, HydrationRecord, OxygenSaturationRecord, Permission, RespiratoryRateRecord, RestingHeartRateRecord, Vo2MaxRecord } from "react-native-health-connect/lib/typescript/types";
-
-export interface IVitals {
-    bloodGlucose: BloodGlucoseRecord[] 
-    bloodPressure:BloodPressureRecord[] 
-    bodyFat: BodyFatRecord[] 
-    bodyTemperature: BodyTemperatureRecord[];
-    waterMass: BodyWaterMassRecord[];
-    heartRate: HeartRateRecord[];
-    heartRateVariability: HeartRateVariabilityRmssdRecord[];
-    hydrationRecord: HydrationRecord[];
-    oxygenSaturation: OxygenSaturationRecord[];
-    respiratoryRate: RespiratoryRateRecord[];
-    restingHeartRate: RestingHeartRateRecord[];
-    vo2Max: Vo2MaxRecord[];
-}
+import {
+  Permission,
+  ReadRecordsOptions,
+} from "react-native-health-connect/lib/typescript/types";
+import { getVitalsRecords } from "./healthConnectUtils/vitals";
 
 const useHealthConnect = () => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -29,12 +17,24 @@ const useHealthConnect = () => {
   );
 
   useEffect(() => {
-    init();
-  });
+    if (!isInitialized) {
+      init();
+    }
+  }, [isInitialized]);
 
-  const testHook = async ()=> {
-    console.log('test hook')
-  }
+  // get vitals
+  const getVitals = async (options: ReadRecordsOptions) => {
+    try {
+      const vitals = await getVitalsRecords(options);
+      return vitals;
+    } catch (error) {
+      console.error("Error fetching vitals");
+    }
+  };
+
+  const testHook = async () => {
+    console.log("test hook");
+  };
 
   // initialize the Health Connect client
   const init = async () => {
@@ -73,12 +73,7 @@ const useHealthConnect = () => {
     return grantedPermissions;
   };
 
-  // getVitals
-  const getVitals = async ()=> {
-
-  }
-
-  return {requestForPermissions, init, getPermissions, getVitals, testHook};
+  return { requestForPermissions, init, getPermissions, getVitals, testHook };
 };
 
 const compareObjects = (
@@ -96,8 +91,9 @@ const compareObjects = (
     ) {
       return false;
     }
-    return true;
   }
+
+  return true;
 };
 
 export default useHealthConnect;
