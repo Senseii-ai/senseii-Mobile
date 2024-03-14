@@ -10,9 +10,14 @@ import {
   checkStatusAsync,
   HEALTH_DATA_SYNC_TASK
 } from "./backgroud/healthDataSync";
+import useHealthConnect from "./hooks/healthConnect";
 
 export default function App() {
   const [isRegistered, setIsRegistered] = useState(false);
+  const {testHook} = useHealthConnect()
+
+  // testHook()
+
 
   useEffect(() => {
     // getHealthData();
