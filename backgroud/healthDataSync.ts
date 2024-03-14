@@ -8,7 +8,7 @@ import * as TaskManager from "expo-task-manager"
 // 3: every 30 minutes, check compare the data from last sync
 // 4: if the data is different, aggregate it on the basis of types of Data
 // 5: make data type specific http calls to the server
-const HEALTH_DATA_SYNC_TASK = "health-data-sync"
+export const HEALTH_DATA_SYNC_TASK = "health-data-sync"
 
 TaskManager.defineTask(HEALTH_DATA_SYNC_TASK, async () => {
     const now = new Date()

@@ -165,3 +165,44 @@ const getHealthData = async () => {
 
   console.log('This is what record looks like');
 };
+
+
+const insertStepsCount = async () => {
+  const now = new Date();
+  now.setHours(9, 0, 0, 0);
+  const startTime = now.toISOString();
+  const startTimeObject = new Date(startTime);
+  startTimeObject.setHours(startTimeObject.getHours() + 2);
+  const endTime = startTimeObject.toISOString();
+
+  const steps: StepsRecord = {
+    recordType: "Steps",
+    count: 500,
+    startTime,
+    endTime,
+  };
+
+  const insertedRecords = await insertRecords([steps]);
+  return insertedRecords;
+};
+
+const getHealthData = async () => {
+  const isInitialized = await initialize();
+  if (!isInitialized) {
+    console.log("Failed to initialize");
+  }
+
+  const grantedPermissions = await requestPermission([
+    {
+      accessType: "read",
+      recordType: "Steps",
+    },
+    {
+      accessType: "write",
+      recordType: "Steps",
+    },
+  ]);
+
+  const insertedRecords = await insertStepsCount();
+  console.log("Inserted records", insertedRecords);
+};
