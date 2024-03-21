@@ -25,7 +25,7 @@ export default function App() {
       await getBloodGlucose()
     }
     // check();
-    // getHealthData()
+    //getHealthData()
   }, []);
 
   const check = async () => {

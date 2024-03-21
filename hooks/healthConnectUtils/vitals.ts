@@ -159,7 +159,7 @@ export const getVo2MaxRecords = async (options: ReadRecordsOptions) => {
   }
 };
 
-export const getVitals = async (options: ReadRecordsOptions) => {
+export const getVitalsRecords = async (options: ReadRecordsOptions): Promise<IVitals> => {
   try {
     let vitals = {} as IVitals;
 
@@ -195,5 +195,6 @@ export const getVitals = async (options: ReadRecordsOptions) => {
     return vitals;
   } catch (error) {
     console.error(error);
+    throw error
   }
 };
