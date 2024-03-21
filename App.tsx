@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button } from "react-native";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { getBloodGlucose } from "./backgroud/fetch/fetchVitals";
 import {
   registerBackgroundFetchAsync,
   unregisterBackgroundFetchAsync,
@@ -9,13 +10,22 @@ import {
   checkStatusAsync,
   HEALTH_DATA_SYNC_TASK
 } from "./backgroud/healthDataSync";
+import useHealthConnect from "./hooks/healthConnect";
 
 export default function App() {
   const [isRegistered, setIsRegistered] = useState(false);
+  const {testHook} = useHealthConnect()
+
+  // testHook()
+
 
   useEffect(() => {
     // getHealthData();
-    check();
+    const getHealthData = async () => {
+      await getBloodGlucose()
+    }
+    // check();
+    //getHealthData()
   }, []);
 
   const check = async () => {
