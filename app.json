@@ -57,8 +57,8 @@
             "./assets/fonts/Roboto_Mono/static/RobotoMono-MediumItalic.ttf",
             "./assets/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf",
             "./assets/fonts/Roboto_Mono/static/RobotoMono-Thin.ttf",
-            "./assets/fonts/Roboto_Mono/statis/RobotoMono-ThinItalic.ttf",
-            "assets/fonts/Roboto_Mono/static/RobotoMono-SemiBold.ttf"
+            "./assets/fonts/Roboto_Mono/static/RobotoMono-ThinItalic.ttf",
+            "./assets/fonts/Roboto_Mono/static/RobotoMono-SemiBold.ttf"
           ]
         }
       ]
